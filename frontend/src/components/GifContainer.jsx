@@ -1,9 +1,9 @@
 import { getTrendingGifs } from '../adapters/giphyAdapters';
 import { useEffect, useState } from 'react';
 
-function GifContainer() {
-    const [gifs, setGifs] = useState([]);
-    const [error, setError] = useState(null);
+function GifContainer({ props }) {
+    const {gifs, setGifs, error, setError} = props
+    
 
     useEffect(() => {
         const doFetch = async () => {
