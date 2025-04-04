@@ -25,9 +25,14 @@ const serveStatic = express.static(pathToDistFolder);
 app.use(serveStatic);
 
 const serveGifs = async (req, res, next) => {
+  const { search } = req.query;
+
   const [data, error] = await handleFetch(
-    `https://api.giphy.com/v1/gifs/trending?limit=3&rating=g&api_key=${process.env.API_KEY}`
+    search
+      ? `https://api.giphy.com/v1/gifs/search?q=${search}&api_key=${process.env.API_KEY}`
+      : `https://api.giphy.com/v1/gifs/trending?limit=3&rating=g&api_key=${process.env.API_KEY}`
   );
+
   if (data) res.send(data);
   if (error) res.status(503).send(error);
 };
